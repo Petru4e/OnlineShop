@@ -6,23 +6,24 @@ namespace OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ProductsRepository _productRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            _productRepository = new ProductsRepository();
         }
 
         public IActionResult Index()
         {
-            return View();
+            var _products = _productRepository.GetAll();
+            return View(_products);
         }
 
         public IActionResult Privacy()
         {
             return View();
         }
-
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
